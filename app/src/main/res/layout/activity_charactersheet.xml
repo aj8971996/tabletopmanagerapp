@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/species_frame"
-            android:layout_alignBottom="@id/species_frame"
+            android:layout_alignBottom="@id/species_frame">
             <ImageView
                 android:id="@+id/health_shape"
                 android:layout_width="155dp"
@@ -146,7 +146,7 @@
                 android:layout_marginLeft="265dp"
                 android:layout_marginTop="10dp"
                 android:text="100"/>
-
+        </FrameLayout>
     </RelativeLayout>
 
     <GridLayout

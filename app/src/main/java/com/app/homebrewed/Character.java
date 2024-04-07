@@ -43,6 +43,20 @@ public class Character {
     public int getACAlevel() {
         return academics / 10;
     }
+    public String getName() { return name; }
+    public String getCharacterClass() { return characterClass; }
+    public String getSpecies() { return species; }
+    public int getLevel() { return level; }
+    public int getHealth() { return health; }
+    public int getBody() { return body; }
+    public int getMind() { return mind; }
+    public int getFlex() { return flex; }
+    public int getBusiness() { return business; }
+    public int getCharm() { return charm; }
+    public int getDeceit() { return deceit; }
+    public int getMagic() { return magic; }
+    public int getReligion() { return religion; }
+    public int getAcademics() { return academics; }
 
     public void setName(String s) {
         this.name = s;

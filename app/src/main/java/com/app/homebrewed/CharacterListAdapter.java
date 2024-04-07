@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder> {
 
     private String[][] data;
+    private OnItemClickListener listener;
 
     public CharacterListAdapter(String[][] data) {
         this.data = data;
@@ -32,12 +33,29 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
         holder.nameTextView.setText(characterName);
         holder.typeTextView.setText(characterType);
         holder.levelTextView.setText(characterLevel);
-        // ...
+
+        // Click handling using the listener
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onItemClick(position);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return data.length;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     static class CharacterViewHolder extends RecyclerView.ViewHolder {
@@ -50,7 +68,6 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
             nameTextView = itemView.findViewById(R.id.character_name);
             typeTextView = itemView.findViewById(R.id.character_type);
             levelTextView = itemView.findViewById(R.id.character_level);
-            // ... (find other TextViews if you have more)
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.app.homebrewed;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -25,9 +26,28 @@ public class CharacterListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characterlist);
 
+        // Initialize the RecyclerView (pre-existing)
         RecyclerView characterList = (RecyclerView) findViewById(R.id.character_list);
         characterList.setLayoutManager(new LinearLayoutManager(this));
-        characterList.setAdapter(new CharacterListAdapter(dummyData));
 
+        // Create the OnItemClickListener
+        CharacterListAdapter.OnItemClickListener listener = new CharacterListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Start the CharacterSheetActivity and send the selected character's position
+                Intent intent = new Intent(CharacterListActivity.this, CharacterSheetActivity.class);
+                intent.putExtra("selectedCharacterIndex", position);
+                startActivity(intent);
+            }
+        };
+
+        // Create the adapter
+        CharacterListAdapter adapter = new CharacterListAdapter(dummyData);
+
+        // Set the adapter to the RecyclerView
+        characterList.setAdapter(adapter);
+
+        // Set the listener on the adapter
+        adapter.setListener(listener);
     }
 }
