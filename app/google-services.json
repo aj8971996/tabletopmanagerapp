@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "260120092146",
+    "project_id": "homebrewed-8d9e5",
+    "storage_bucket": "homebrewed-8d9e5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260120092146:android:423934d3f964268283df6b",
+        "android_client_info": {
+          "package_name": "com.app.homebrewed"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdNOnxb-fW_NCC-o7t6l-gf1pmR34x_yU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

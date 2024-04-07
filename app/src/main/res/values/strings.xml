@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">homebrewed</string>
+    <string name="usernamelabel">Username</string>
+    <string name="passwordlabel">Password</string>
+    <string name="logodesc">A dodecahedron with the app name - Home Brewed</string>
+    <string name="rulebookbtndesc">A button with the text View Rule Book</string>
+    <string name="itemstorebtndesc">A button with the text View Item Store</string>
+    <string name="abilitybtndesc">A button with the text View Ability Library </string>
+    <string name="createcharbtndesc">A button with the text Create Character</string>
+    <string name="delcharbtndesc">A button with the text Delete Characters</string>
+
+</resources>

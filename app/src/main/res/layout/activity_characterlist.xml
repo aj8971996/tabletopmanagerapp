@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_characterlist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- App Logo -->
+    <ImageView
+        android:id="@+id/homebrewedl"
+        android:layout_width="189dp"
+        android:layout_height="67dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ttmslogo"
+        android:contentDescription="@string/logodesc"/>
+
+    <!-- App Header -->
+    <RelativeLayout
+        android:id="@+id/appheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/homebrewedl">
+
+        <!-- Space between App Logo and Menu Icon -->
+        <!-- Add your menu icon here -->
+
+    </RelativeLayout>
+
+    <!-- Main Content -->
+
+    <!-- Character Table -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/character_list"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/appheader"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:scrollbars="vertical"/>
+
+    <!-- ImageButton for View Rule Book -->
+    <ImageButton
+        android:id="@+id/btnrulebook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/character_list"
+        android:layout_marginTop="25dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/viewrulesbtn"
+        android:contentDescription="@string/rulebookbtndesc"/>
+    <!-- Load Item Store Button -->
+    <ImageButton
+        android:id="@+id/btnloaditem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/loaditemsbtn"
+        android:layout_below="@id/btnrulebook"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        android:contentDescription="@string/itemstorebtndesc"/>
+    <!-- Load Ability Library Button -->
+    <ImageButton
+        android:id="@+id/btnloadability"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/loadabilitybtn"
+        android:layout_below="@id/btnloaditem"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        android:contentDescription="@string/abilitybtndesc"/>
+    <!-- Create Character Button -->
+    <ImageButton
+        android:id="@+id/btncreatecharacter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/createcharbtn"
+        android:layout_below="@id/btnloadability"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        android:contentDescription="@string/createcharbtndesc"/>
+    <!-- Delete Character Button -->
+    <ImageButton
+        android:id="@+id/btndeletechar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/deletecharbtn"
+        android:layout_below="@id/btncreatecharacter"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:elevation="4dp"
+        android:contentDescription="@string/delcharbtndesc"/>
+
+</RelativeLayout>
