@@ -43,6 +43,9 @@ public class Character {
     public int getACAlevel() {
         return academics / 10;
     }
+    public int getModLevel(Integer i) {
+        return i/10;
+    }
     public String getName() { return name; }
     public String getCharacterClass() { return characterClass; }
     public String getSpecies() { return species; }

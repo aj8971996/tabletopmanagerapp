@@ -28,6 +28,7 @@
             android:src="@drawable/modifiervalueshape" />
 
         <TextView
+            android:id="@+id/modifier_value_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20"
@@ -48,7 +49,7 @@
             android:background="@drawable/modifier_level_shape_with_outline" />
 
         <TextView
-            android:id="@+id/modifier_level_value"
+            android:id="@+id/modifier_level_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="+2"

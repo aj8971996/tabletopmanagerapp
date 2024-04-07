@@ -72,10 +72,12 @@ public class CharacterSheetActivity extends AppCompatActivity {
 
         for (int i = 0; i < modifierMatrix.getChildCount(); i++) {
             View modifierItem = modifierMatrix.getChildAt(i);
-            TextView modifierLevelValue = modifierItem.findViewById(R.id.modifier_level_value);
-
+            TextView modifierValueText = modifierItem.findViewById(R.id.modifier_value_text);
+            TextView modifierLevelText = modifierItem.findViewById(R.id.modifier_level_text);
             if (i < modifierValues.length) {
-                modifierLevelValue.setText(String.valueOf(modifierValues[i]));
+                // Set both value and level
+                modifierValueText.setText(String.valueOf(modifierValues[i]));
+                modifierLevelText.setText(String.valueOf(selectedCharacter.getModLevel(modifierValues[i])));
             } else {
                 // Handle cases where you have more grid items than modifiers
             }
@@ -86,7 +88,7 @@ public class CharacterSheetActivity extends AppCompatActivity {
         List<Character> characters = new ArrayList<>();
 
         // Start from index 1 to skip the header row
-        for (int i = 1; i < dummyData.length; i++) {
+        for (int i = 0; i < dummyData.length; i++) {
             Character character = new Character();
             character.setName(dummyData[i][0]);
             character.setSpecies(dummyData[i][1]);
