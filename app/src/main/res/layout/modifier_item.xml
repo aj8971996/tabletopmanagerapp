@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_columnWeight="1"
+    android:layout_rowWeight="1"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/modifier_level_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@id/modifier_value_frame"
+        android:text="LBL" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/modifier_value_frame">
+
+        <ImageView
+            android:id="@+id/modifier_value_shape"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/modifiervalueshape" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/modifier_value_frame"
+        android:layout_alignRight="@id/modifier_value_frame">
+
+        <View
+            android:id="@+id/modifier_level_shape"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/modifier_level_shape_with_outline" />
+
+        <TextView
+            android:id="@+id/modifier_level_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+2"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+</RelativeLayout>
+
+

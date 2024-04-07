@@ -30,7 +30,7 @@
 
     <!-- Main Content -->
 
-    <!-- Character Table -->
+    <!-- com.app.homebrewed.Character Table -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/character_list"
         android:layout_width="match_parent"
@@ -73,7 +73,7 @@
         android:background="@android:color/transparent"
         android:elevation="4dp"
         android:contentDescription="@string/abilitybtndesc"/>
-    <!-- Create Character Button -->
+    <!-- Create com.app.homebrewed.Character Button -->
     <ImageButton
         android:id="@+id/btncreatecharacter"
         android:layout_width="match_parent"
@@ -84,7 +84,7 @@
         android:background="@android:color/transparent"
         android:elevation="4dp"
         android:contentDescription="@string/createcharbtndesc"/>
-    <!-- Delete Character Button -->
+    <!-- Delete com.app.homebrewed.Character Button -->
     <ImageButton
         android:id="@+id/btndeletechar"
         android:layout_width="match_parent"
