@@ -8,5 +8,6 @@
     <string name="abilitybtndesc">A button with the text View Ability Library </string>
     <string name="createcharbtndesc">A button with the text Create Character</string>
     <string name="delcharbtndesc">A button with the text Delete Characters</string>
-
+    <string name="healthrollinstructions">Roll 5 D10 to determine starting Health. If more than 3 results are less than 10, count the two lowest as 10.</string>
+    <string name="modrollinstructions">Roll 10 D8 and assign points to each modifier as desired. Every 10 points is 1 level to that modifier</string>
 </resources>
