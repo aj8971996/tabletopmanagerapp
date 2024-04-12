@@ -1,10 +1,13 @@
 package com.app.homebrewed;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.TextView;
 import android.util.Log;
@@ -27,6 +30,7 @@ public class CharacterSheetActivity extends AppCompatActivity {
     // Grid Modifier Positions (BDY = index 5)
     int[] modifierIndices = {5, 6, 7, 8, 9, 10, 11, 12, 13};
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,14 @@ public class CharacterSheetActivity extends AppCompatActivity {
         TextView nameValue = findViewById(R.id.name_value);
         TextView speciesValue = findViewById(R.id.species_value);
         TextView healthValue = findViewById(R.id.health_value);
+        AppCompatImageButton btnLoadCharLst = findViewById(R.id.loadcharacter);
+
+        btnLoadCharLst.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadCharList(); // Call your existing signIn method
+            }
+        });
 
         // Load character data
         List<Character> characters = loadCharacterData();
@@ -109,5 +121,11 @@ public class CharacterSheetActivity extends AppCompatActivity {
         }
 
         return characters;
+    }
+
+    public void loadCharList() {
+        // Start CharacterListActivty directly
+        Intent intent = new Intent(CharacterSheetActivity.this, CharacterListActivity.class);
+        startActivity(intent);
     }
 }
