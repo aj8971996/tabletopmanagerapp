@@ -1,9 +1,13 @@
 package com.app.homebrewed;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,10 +25,12 @@ public class CharacterListActivity extends AppCompatActivity {
             {"Sibillye Durn", "Human Being", "6"}
     };
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characterlist);
+        AppCompatImageButton btnCreateChar = findViewById(R.id.btncreatecharacter);
 
         // Initialize the RecyclerView (pre-existing)
         RecyclerView characterList = (RecyclerView) findViewById(R.id.character_list);
@@ -41,6 +47,13 @@ public class CharacterListActivity extends AppCompatActivity {
             }
         };
 
+        btnCreateChar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createCharacter(); // Call createCharacter method
+            }
+        });
+
         // Create the adapter
         CharacterListAdapter adapter = new CharacterListAdapter(dummyData);
 
@@ -49,5 +62,11 @@ public class CharacterListActivity extends AppCompatActivity {
 
         // Set the listener on the adapter
         adapter.setListener(listener);
+    }
+
+    public void createCharacter() {
+        // Start CharacterListActivty directly
+        Intent intent = new Intent(CharacterListActivity.this, CreateCharacterActivity.class);
+        startActivity(intent);
     }
 }
