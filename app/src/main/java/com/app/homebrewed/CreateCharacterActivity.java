@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
+
 public class CreateCharacterActivity extends AppCompatActivity {
 
     @Override
@@ -24,38 +26,64 @@ public class CreateCharacterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_character);
         String[] speciesArray = getResources().getStringArray(R.array.species);
+        String[] classArray = getResources().getStringArray(R.array.classes);
         if (speciesArray == null || speciesArray.length == 0) {
             Log.e("CreateCharacterActivity", "Species array is empty or null!");
             // Handle the error - maybe show a message to the user
             return;
         }
+        if (classArray == null || classArray.length == 0) {
+            Log.e("CreateCharacterActivity", "Species array is empty or null!");
+            // Handle the error - maybe show a message to the user
+            return;
+        }
+
 
         // 2. Find RecyclerView
         RecyclerView speciesRecyclerView = findViewById(R.id.speciesRecyclerView);
         Log.d("CreateCharacterActivity", "speciesRecyclerView: " + speciesRecyclerView);
+        RecyclerView classRecyclerView = findViewById(R.id.classRecyclerView);
+        Log.d("CreateCharacterActivity", "speciesRecyclerView: " + speciesRecyclerView);
 
         // 3. Create and set Adapter
-        SpeciesListAdapter adapter = new SpeciesListAdapter(speciesArray);
-        speciesRecyclerView.setAdapter(adapter);
+        SpeciesListAdapter species_adapter = new SpeciesListAdapter(speciesArray);
+        speciesRecyclerView.setAdapter(species_adapter);
+        ClassListAdapter class_adapter = new ClassListAdapter(classArray);
+        classRecyclerView.setAdapter(class_adapter);
 
-        // 4. Set Layout Manager
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        speciesRecyclerView.setLayoutManager(layoutManager);
+        // Separate LayoutManagers for each RecyclerView
+        LinearLayoutManager speciesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        speciesRecyclerView.setLayoutManager(speciesLayoutManager);
+        LinearLayoutManager classLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        classRecyclerView.setLayoutManager(classLayoutManager);
+
 
         // In your CreateCharacterActivity, after setting the LayoutManager:
         SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(speciesRecyclerView);
+        snapHelper.attachToRecyclerView(classRecyclerView);
 
         // Additional for indicator
-        final LinearLayout indicatorLayout = findViewById(R.id.indicatorLayout);
-        setupIndicatorDots(speciesArray.length, indicatorLayout);
+        final LinearLayout speciesIndicatorLayout = findViewById(R.id.speciesIndicatorLayout);
+        setupIndicatorDots(speciesArray.length, speciesIndicatorLayout);
+        final LinearLayout classIndicatorLayout = findViewById(R.id.classIndicatorLayout);
+        setupIndicatorDots(classArray.length, classIndicatorLayout);
 
         speciesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                updateIndicatorDots(layoutManager.findFirstVisibleItemPosition(), indicatorLayout);
+                updateIndicatorDots(layoutManager.findFirstVisibleItemPosition(), speciesIndicatorLayout);
+            }
+        });
+
+        classRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                updateIndicatorDots(layoutManager.findFirstVisibleItemPosition(), classIndicatorLayout);
             }
         });
     }
