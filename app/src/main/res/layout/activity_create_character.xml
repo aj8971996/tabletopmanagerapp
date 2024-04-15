@@ -54,27 +54,28 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/containerCharSpecies"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/lblCharSpecies"
-                android:layout_width="300dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
                 android:gravity="center"
+                android:paddingTop="10dp"
                 android:text="Character Species" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                tools:listitem="@layout/list_character_species" />
-        </LinearLayout>
+                android:id="@+id/speciesRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_toRightOf="@id/lblCharSpecies"
+                android:layout_weight="2"
+                tools:listitem="@layout/list_character_species"
+                android:orientation="vertical"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/containerCharClass"
@@ -102,7 +103,7 @@
             android:id="@+id/txtInstructHealthRoll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_gravity="center"
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/healthrollinstructions" />
@@ -142,87 +143,308 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:text="@string/modrollinstructions" />
-
+        <!-- Modifier Table -->
         <TableLayout
             android:id="@+id/tblModifierEntries"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp">
+            <!-- Modifier Row One -->
             <TableRow
                 android:id="@+id/modsRowOne"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/lblBodyMod"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center">
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                                                                                    <!-- Mod One -->
+                    <!-- Mod One Label -->
+                    <!-- Mod One Box -->
+                    <TextView
+                        android:id="@+id/lblModOne"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_one"
+                        android:textAlignment="center" />
 
-                <TextView
-                    android:id="@+id/lblMindMod"
+                    <ImageView
+                        android:id="@+id/boxModOne"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lblModOne"
+                        android:src="@drawable/modifiervalueshape"
+                        android:foregroundGravity="center"
+                        />
+                    <!-- Mod One Input (Progress) -->
+                </RelativeLayout>
+
+                                                                                    <!-- Mod Two -->
+                <RelativeLayout
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="2.5dp"
+                    android:paddingRight="2.5dp">
+                    <!--Mod Two Label-->
+                    <TextView
+                        android:id="@+id/lblModTwo"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_two" />
+                    <!--Mod Two Box-->
+                    <ImageView
+                        android:id="@+id/boxModTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lblModTwo"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod Two Input (Progress)-->
+                </RelativeLayout>
+
+                                                                                  <!-- Mod Three -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod Three Label -->
+                    <TextView
+                        android:id="@+id/lblModThree"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_three" />
+                    <!-- Mod Three Box -->
+                    <ImageView
+                        android:id="@+id/boxModThree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/lblModThree"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod Three Input (Progress)-->
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/lblFlexMod"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
             </TableRow>
-
+            <!-- Modifier Row Two -->
             <TableRow
                 android:id="@+id/modsRowTwo"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/lblBuisnessMod"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center">
+                                                                                   <!-- Mod Four -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/lblCharmMod"
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod Four Label -->
+                    <TextView
+                        android:id="@+id/lblModFour"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_four" />
+                    <!-- Mod Four Box -->
+                    <ImageView
+                        android:id="@+id/boxModFour"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/lblModFour"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod Four Input (Progress)-->
+                </RelativeLayout>
+                                                                                   <!-- Mod Five -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/lblDeceitMod"
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod Five Label -->
+                    <TextView
+                        android:id="@+id/lblModFive"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_five" />
+                    <!-- Mod Five Box -->
+                    <ImageView
+                        android:id="@+id/boxModFive"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/lblModFive"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod Five Input (Progress)-->
+                </RelativeLayout>
+                                                                                    <!-- Mod Six -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod Six Label -->
+                    <TextView
+                        android:id="@+id/lblModSix"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_six" />
+                    <!-- Mod Six Box -->
+                    <ImageView
+                        android:id="@+id/boxModSix"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/lblModSix"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod Six Input (Progress) -->
+                </RelativeLayout>
             </TableRow>
 
+            <!-- Modifier Row Three -->
             <TableRow
                 android:id="@+id/modsRowThree"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/lblMagicMod"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center">
+                                                                                  <!-- Mod Seven -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/lblReligionMod"
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod 7 Label -->
+                    <TextView
+                        android:id="@+id/lblModSeven"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_seven" />
+                    <!-- Mod 7 Box -->
+                    <ImageView
+                        android:id="@+id/boxModSeven"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/lblModSeven"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod 7 Input (Progress) -->
+                </RelativeLayout>
+                                                                                  <!-- Mod Eight -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
-
-                <TextView
-                    android:id="@+id/lblAcademicsMod"
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod 8 Label -->
+                    <TextView
+                        android:id="@+id/lblModEight"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_eight" />
+                    <!-- Mod 8 Box -->
+                    <ImageView
+                        android:id="@+id/boxModEight"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/lblModEight"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod 8 Input (Progress) -->
+                </RelativeLayout>
+                                                                                   <!-- Mod Nine -->
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:paddingRight="2.5dp"
+                    android:paddingLeft="2.5dp">
+                    <!-- Mod 9 Label -->
+                    <TextView
+                        android:id="@+id/lblModNine"
+                        android:layout_width="55dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/mod_nine" />
+                    <!-- Mod 9 Box -->
+                    <ImageView
+                        android:id="@+id/boxModNine"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_below="@id/lblModNine"
+                        android:src="@drawable/modifiervalueshape"
+                        />
+                    <!-- Mod 9 Input (Progress) -->
+                </RelativeLayout>
             </TableRow>
 
         </TableLayout>
-
+        <TextView
+            android:id="@+id/txtInstructAbility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_below="@id/tblModifierEntries"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:text="@string/abilityselectinstructions" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:layout_gravity="center">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/abilitySelectOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:listitem="@layout/list_character_abilities" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/abilitySelectTwo"
+                android:layout_toRightOf="@id/abilitySelectOne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:listitem="@layout/list_character_abilities" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/abilitySelectThree"
+                android:layout_toRightOf="@id/abilitySelectTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:listitem="@layout/list_character_abilities" />
+        </RelativeLayout>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@color/white"
+            android:src="@drawable/btncreatecharacter"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
