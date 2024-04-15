@@ -59,9 +59,10 @@ public class CreateCharacterActivity extends AppCompatActivity {
 
 
         // In your CreateCharacterActivity, after setting the LayoutManager:
-        SnapHelper snapHelper = new LinearSnapHelper();
-        snapHelper.attachToRecyclerView(speciesRecyclerView);
-        snapHelper.attachToRecyclerView(classRecyclerView);
+        SnapHelper speciesSnapHelper = new LinearSnapHelper();
+        speciesSnapHelper.attachToRecyclerView(speciesRecyclerView);
+        SnapHelper classSnapHelper = new LinearSnapHelper();
+        classSnapHelper.attachToRecyclerView(classRecyclerView);
 
         // Additional for indicator
         final LinearLayout speciesIndicatorLayout = findViewById(R.id.speciesIndicatorLayout);

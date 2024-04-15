@@ -42,15 +42,26 @@
                 android:gravity="center"
                 android:text="Character Name" />
 
-            <ImageView
-                android:id="@+id/imgCharNameEntry"
+            <RelativeLayout
+                android:id="@+id/containerCharBox"
                 android:layout_width="wrap_content"
-                android:layout_height="23dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:src="@drawable/imgcharnameentrybackground" />
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imgCharNameEntry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/imgcharnameentrybackground" />
+
+                <EditText
+                    android:id="@+id/edtCharName"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:hint="Character Name"
+                    android:background="@drawable/transparent_background" />
+            </RelativeLayout>
 
         </LinearLayout>
 
@@ -61,18 +72,21 @@
 
             <TextView
                 android:id="@+id/lblCharSpecies"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
                 android:gravity="center"
                 android:paddingTop="10dp"
                 android:text="Character Species" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/speciesRecyclerView"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_toRightOf="@id/lblCharSpecies"
                 android:layout_weight="2"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:paddingTop="5dp"
                 tools:listitem="@layout/list_character_species"
                 android:orientation="horizontal"/>
 
@@ -96,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:paddingLeft="20dp"
             android:paddingTop="10dp"
             android:text="Character Class" />
 
@@ -103,7 +118,9 @@
                 android:id="@+id/classRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:paddingLeft="30dp"
                 android:layout_toRightOf="@id/lblCharClass"
+                android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
                 tools:listitem="@layout/list_character_class"
                 android:orientation="horizontal"/>
