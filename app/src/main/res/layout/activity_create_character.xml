@@ -63,7 +63,9 @@
                 android:id="@+id/lblCharSpecies"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:gravity="center"
+                android:paddingLeft="18dp"
                 android:paddingTop="10dp"
                 android:text="Character Species" />
 
@@ -72,13 +74,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_toRightOf="@id/lblCharSpecies"
+                android:paddingLeft="50dp"
                 android:layout_weight="2"
                 tools:listitem="@layout/list_character_species"
                 android:orientation="vertical"/>
+
+            <LinearLayout
+                android:id="@+id/indicatorLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/speciesRecyclerView"
+                android:layout_alignEnd="@+id/speciesRecyclerView"
+                android:layout_marginEnd="117dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/containerCharClass"
+            android:layout_below="@id/indicatorLayout"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal">
