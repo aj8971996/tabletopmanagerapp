@@ -21,7 +21,7 @@ import com.google.android.gms.common.internal.safeparcel.SafeParcelable;
 public class CreateCharacterActivity extends AppCompatActivity {
     //Dummy Data for Ability Selection
     //Index | Level | Class | Name | Description | Range | Damage | Effect
-    private String[][] dummyData = {
+    private String[][] abilityData = {
 
                                                             //Dancer Abilities
             {"1", "1", "Dancer", "Fox Trot",
@@ -186,31 +186,31 @@ public class CreateCharacterActivity extends AppCompatActivity {
                     "Sacrifice movement | You can take 1 additional attack action this turn and next"},
 
                                                             //Construction Abilities
-            {"31", "1", "Construction", "Build Barrier",
-                    "",
-                    "",
-                    "",
-                    ""},
-            {"32", "1", "Construction", "Repair Construct",
-                    "",
-                    "",
-                    "",
-                    ""},
-            {"33", "1", "Construction", "Build Pet",
-                    "",
-                    "",
-                    "",
-                    ""},
-            {"34", "1", "Construction", "Build Weapon",
-                    "",
-                    "",
-                    "",
-                    ""},
-            {"35", "1", "Construction", "Build Turret",
-                    "",
-                    "",
-                    "",
-                    ""},
+            {"31", "1", "Construction", "Build Barrier v1",
+                    "Create something to block incoming attacks.",
+                    "Target area of 10ftx10ftx10ft must be within 5ft of Caster",
+                    "No Damage",
+                    "Create a Barrier that is 10ft x 10ft x 10ft - this takes up your movement and additional action."},
+            {"32", "1", "Construction", "Repair v1 Construct",
+                    "Things break, but you can fix broken things!",
+                    "Construct within 10ft",
+                    "No Damage",
+                    "Repair a damaged or broken version one construct"},
+            {"33", "1", "Construction", "Build Pet v1",
+                    "Everyone needs a pet - but you can build a much better pet. Make it stronger, faster!",
+                    "Pet Range : Target within 20ft",
+                    "Pet Attack : 4 D6 + Caster ACA Lvl",
+                    "Create a companion that will join you in battle - this takes up your movement and attack action."},
+            {"34", "1", "Construction", "Build Weapon v1",
+                    "There is nothing quite like assaulting your enemy with a weapon you made yourself!",
+                    "Bladed Weapon : Target within 5ft | Light Firearm : Target within 25ft | Heavy Firearm : Target within 15ft",
+                    "Bladed Weapon : 3 D12 + BDY Lvl | Light Firearm : 4 D6 + FLX Lvl | Heavy Firearm : 3 D12 + ACA Lvl",
+                    "Create a powerful weapon that you can use until it breaks - this takes up your movement and attack action."},
+            {"35", "1", "Construction", "Build Turret v1",
+                    "You don't have the time to be watching over someone, telling them who to attack - this thing just attacks what's near it!",
+                    "Turret Range : 10ft around Turret",
+                    "Turret Attack : 5 D8 + Caster ACA Lvl",
+                    "Create a turret that will automatically target nearby visible enemies - this takes up your movement and attack action."},
 
                                                             //Entrepreneur Abilities
             {"36", "1", "Entrepreneur", "Charm the Customer",
