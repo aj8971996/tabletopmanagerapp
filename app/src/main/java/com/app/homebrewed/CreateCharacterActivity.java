@@ -106,18 +106,23 @@ public class CreateCharacterActivity extends AppCompatActivity {
             return;
         }
 
-        // Additional for indicator
+        // Indicator Dot Setup
         final LinearLayout speciesIndicatorLayout = findViewById(R.id.speciesIndicatorLayout);
         setupIndicatorDots(speciesArray.length, speciesIndicatorLayout);
         final LinearLayout classIndicatorLayout = findViewById(R.id.classIndicatorLayout);
         setupIndicatorDots(classArray.length, classIndicatorLayout);
         final LinearLayout abilityOneIndicatorLayout = findViewById(R.id.abilityOneIndicatorLayout);
-        setupIndicatorDots(filteredAbilitiesOne.size(), abilityOneIndicatorLayout);
+        if (filteredAbilitiesOne.size() > 0) { // Check if the list is not empty
+            setupIndicatorDots(filteredAbilitiesOne.size(), abilityOneIndicatorLayout);
+        }
         final LinearLayout abilityTwoIndicatorLayout = findViewById(R.id.abilityTwoIndicatorLayout);
-        setupIndicatorDots(filteredAbilitiesTwo.size(), abilityTwoIndicatorLayout);
+        if (filteredAbilitiesTwo.size() > 0) { // Check if the list is not empty
+            setupIndicatorDots(filteredAbilitiesTwo.size(), abilityTwoIndicatorLayout);
+        }
         final LinearLayout abilityThreeIndicatorLayout = findViewById(R.id.abilityThreeIndicatorLayout);
-        setupIndicatorDots(filteredAbilitiesThree.size(), abilityThreeIndicatorLayout);
-
+        if (filteredAbilitiesThree.size() > 0) { // Check if the list is not empty
+            setupIndicatorDots(filteredAbilitiesThree.size(), abilityThreeIndicatorLayout);
+        }
 
         speciesRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

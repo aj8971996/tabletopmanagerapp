@@ -1,16 +1,30 @@
 package com.app.homebrewed;
 
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.List;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-public class AbilityListAdapter {
+public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.AbilityViewHolder> {
     private HashMap<String, List<Ability>> abilitiesByClass;
 
     public AbilityListAdapter() {
         this.abilitiesByClass = new HashMap<>();
         populateAbilities(); // Call your method to add abilities
     }
+
+    @NonNull
+    @Override
+    public AbilityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return null;
+    }
+
     private String[][] abilityData = {
             //Index | Lvl | Class | Name | Description | Range | Damage | Effect
             //Dancer Abilities
@@ -258,6 +272,27 @@ public class AbilityListAdapter {
     };
     private List<Ability> allAbilities;
 
+    public static class AbilityViewHolder extends RecyclerView.ViewHolder {
+        public TextView ability_name_textview; // Match this with the ID in your list item layout
+
+        public AbilityViewHolder(View itemView) {
+            super(itemView);
+            ability_name_textview = itemView.findViewById(R.id.ability_name_textview);
+            // Find any other TextViews you might have
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull AbilityViewHolder holder, int position) {
+        Ability currentAbility = allAbilities.get(position);
+        holder.ability_name_textview.setText(currentAbility.getAbilityName());
+        // You might want more TextViews here depending on your layout
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
+    }
 
     private void populateAbilities() {
         allAbilities = new ArrayList<>(); // Initialize list
