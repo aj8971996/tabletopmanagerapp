@@ -9,6 +9,12 @@ public class Ability {
     private String abilityRange;
     private String abilityDamage;
     private String abilityEffect;
+
+    // Constructor
+    public Ability(String abilityName) {
+        this.abilityName = abilityName;
+    }
+
     public int getAbilityIndex() { return abilityIndex; }
     public int getAbilityLevel() { return abilityLevel; }
     public String getAbilityClass() { return abilityClass; }

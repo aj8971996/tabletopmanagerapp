@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.ClassViewHolder> {
 
     private String[] classData; // Holds the data for your list
+    private int selectedPosition = 0; // Initially, first item is selected
 
     // Constructor
     public ClassListAdapter(String[] speciesData) {
@@ -27,6 +28,13 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.Clas
         }
     }
 
+    public String getSelectedClass() {
+        if (selectedPosition != -1) {
+            return classData[selectedPosition];
+        }
+        return null; // Or throw an exception if no selection should be possible
+    }
+
     // Required Methods (We'll fill them in)
     @NonNull
     @Override
@@ -37,9 +45,18 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.Clas
 
     @Override
     public void onBindViewHolder(@NonNull ClassViewHolder holder, int position) {
-        String currentSpecies = classData[position];
-        holder.textView1.setText(currentSpecies);
+        String currentClass = classData[position];
+        holder.textView1.setText(currentClass);
+
+        // Selection Logic
+        holder.itemView.setSelected(selectedPosition == position); // Highlight if selected
+        holder.itemView.setOnClickListener(view -> {
+            // Update Selection
+            selectedPosition = position;
+            notifyDataSetChanged(); // Redraw to show selection changes
+        });
     }
+
 
     @Override
     public int getItemCount() {
