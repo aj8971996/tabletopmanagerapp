@@ -1,5 +1,6 @@
 package com.app.homebrewed;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -27,6 +28,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_character);
+        Log.d("TEST", "onCreate started");
 
         // Fetch String Array
         String[] speciesArray = getResources().getStringArray(R.array.species);
@@ -44,6 +46,16 @@ public class CreateCharacterActivity extends AppCompatActivity {
             return;
         }
 
+        // Set the listener to receive class selections
+        ClassListAdapter classAdapter = new ClassListAdapter(classArray);
+        classAdapter.setOnClassSelectedListener(new ClassListAdapter.OnClassSelectedListener() {
+            @Override
+            public void onClassSelected(String selectedClass) {
+                // Call the method to handle class selection
+                handleClassSelection(selectedClass);
+            }
+        });
+
         // Find RecyclerViews
         RecyclerView speciesRecyclerView = findViewById(R.id.speciesRecyclerView);
         RecyclerView classRecyclerView = findViewById(R.id.classRecyclerView);
@@ -54,7 +66,6 @@ public class CreateCharacterActivity extends AppCompatActivity {
         // Create and set Adapters
         SpeciesListAdapter speciesAdapter = new SpeciesListAdapter(speciesArray);
         speciesRecyclerView.setAdapter(speciesAdapter);
-        ClassListAdapter classAdapter = new ClassListAdapter(classArray);
         classRecyclerView.setAdapter(classAdapter);
         abilityListAdapterOne = new AbilityListAdapter();
         abilitySelectOneRecyclerView.setAdapter(abilityListAdapterOne);
@@ -80,6 +91,12 @@ public class CreateCharacterActivity extends AppCompatActivity {
         speciesSnapHelper.attachToRecyclerView(speciesRecyclerView);
         SnapHelper classSnapHelper = new LinearSnapHelper();
         classSnapHelper.attachToRecyclerView(classRecyclerView);
+        SnapHelper abilitySnapHelperOne = new LinearSnapHelper();
+        abilitySnapHelperOne.attachToRecyclerView(abilitySelectOneRecyclerView);
+        SnapHelper abilitySnapHelperTwo = new LinearSnapHelper();
+        abilitySnapHelperTwo.attachToRecyclerView(abilitySelectTwoRecyclerView);
+        SnapHelper abilitySnapHelperThree = new LinearSnapHelper();
+        abilitySnapHelperThree.attachToRecyclerView(abilitySelectThreeRecyclerView);
 
         // Indicator Dot Setup
         final LinearLayout speciesIndicatorLayout = findViewById(R.id.speciesIndicatorLayout);
@@ -93,39 +110,45 @@ public class CreateCharacterActivity extends AppCompatActivity {
     }
 
     // Event handler for class selection
-    public void onClassSelected(String selectedClass) {
+    // Event handler for class selection
+    private void handleClassSelection(String selectedClass) {
+        RecyclerView abilitySelectOneRecyclerView = findViewById(R.id.abilitySelectOne);
         this.selectedClass = selectedClass;
-        updateAbilitiesForRecyclerViewOne();
+        updateAbilitiesForRecyclerView(abilitySelectOneRecyclerView, selectedClass, excludedAbilities);
+        Log.d("CLASS_SELECTION", "Selected Class: " + selectedClass);
     }
+
 
     // Event handler for ability selection in abilitySelectOneRecyclerView
+    // Event handler for ability selection in abilitySelectOneRecyclerView
     public void onAbilitySelectedInListOne(String selectedAbility) {
+        RecyclerView abilitySelectOneRecyclerView = findViewById(R.id.abilitySelectOne);
         excludedAbilities.add(selectedAbility);
-        updateAbilitiesForRecyclerViewTwo();
+        updateAbilitiesForRecyclerView(abilitySelectOneRecyclerView, selectedClass, excludedAbilities);
     }
 
-    // Similarly for ability selection in abilitySelectTwoRecyclerView
     public void onAbilitySelectedInListTwo(String selectedAbility) {
+        RecyclerView abilitySelectTwoRecyclerView = findViewById(R.id.abilitySelectTwo);
         excludedAbilities.add(selectedAbility);
-        updateAbilitiesForRecyclerViewThree();
+        updateAbilitiesForRecyclerView(abilitySelectTwoRecyclerView, selectedClass, excludedAbilities);
     }
 
-    private void updateAbilitiesForRecyclerViewOne() {
-        List<Ability> classOneAbilities = abilityListAdapterOne.filterClassAbilities(selectedClass, excludedAbilities);
-        abilityListAdapterOne.allAbilities = classOneAbilities; // Update the adapter's data
-        abilityListAdapterOne.notifyDataSetChanged();
+    public void onAbilitySelectedInListThree(String selectedAbility) {
+        RecyclerView abilitySelectTwoRecyclerView = findViewById(R.id.abilitySelectThree);
+        excludedAbilities.add(selectedAbility);
+        updateAbilitiesForRecyclerView(abilitySelectTwoRecyclerView, selectedClass, excludedAbilities);
     }
 
-    private void updateAbilitiesForRecyclerViewTwo() {
-        List<Ability> classTwoAbilities = abilityListAdapterTwo.filterClassAbilities(selectedClass, excludedAbilities); // Filter based on class two adapter
-        abilityListAdapterTwo.allAbilities = classTwoAbilities;
-        abilityListAdapterTwo.notifyDataSetChanged();
-    }
 
-    private void updateAbilitiesForRecyclerViewThree() {
-        List<Ability> classThreeAbilities = abilityListAdapterThree.filterClassAbilities(selectedClass, excludedAbilities); // Filter based on class three adapter
-        abilityListAdapterThree.allAbilities = classThreeAbilities;
-        abilityListAdapterThree.notifyDataSetChanged();
+    private void updateAbilitiesForRecyclerView(RecyclerView recyclerView, String selectedClass, List<String> excludedAbilities) {
+        AbilityListAdapter adapter = (AbilityListAdapter) recyclerView.getAdapter();
+        if (adapter == null) { // Add a null check!
+            Log.e("CreateCharacterActivity", "Adapter for RecyclerView is null");
+            return;
+        }
+
+        List<Ability> filteredAbilities = adapter.filterClassAbilities(selectedClass, excludedAbilities);
+        adapter.updateAbilities(filteredAbilities); // Update RecyclerView with filtered abilities
     }
 
 

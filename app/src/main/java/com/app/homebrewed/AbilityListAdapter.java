@@ -1,5 +1,6 @@
 package com.app.homebrewed;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,23 +9,29 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.AbilityViewHolder> {
     private HashMap<String, List<Ability>> abilitiesByClass;
+    private int selectedAbilityPosition = RecyclerView.NO_POSITION;
+    private List<Ability> allAbilities = new ArrayList<>();
 
     public AbilityListAdapter() {
         this.abilitiesByClass = new HashMap<>();
         populateAbilities(); // Call your method to add abilities
     }
 
-    @Override
-    public AbilityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View listItem = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_character_abilities, parent, false);
-        return new AbilityViewHolder(listItem);
+    public List<Ability> getAllAbilities() {
+        return allAbilities;
+    }
+
+    public String getSelectedItem() {
+        if (selectedAbilityPosition != RecyclerView.NO_POSITION && selectedAbilityPosition < allAbilities.size()) {
+            return allAbilities.get(selectedAbilityPosition).getAbilityName();
+        }
+        return null; // Return null if no item is selected
     }
 
     private String[][] abilityData = {
@@ -272,43 +279,35 @@ public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.
                     "No Damage",
                     "Detect the general detection of magic in effect - the stronger the magic, the more precise location you can gleam."}
     };
-    public List<Ability> allAbilities;
 
-    public static class AbilityViewHolder extends RecyclerView.ViewHolder {
-        public TextView ability_name_textview; // Match this with the ID in your list item layout
-
-        public AbilityViewHolder(View itemView) {
-            super(itemView);
-            ability_name_textview = itemView.findViewById(R.id.ability_name_textview);
-            // Find any other TextViews you might have
-        }
+    @NonNull
+    @Override
+    public AbilityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View listItem = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_character_abilities, parent, false);
+        return new AbilityViewHolder(listItem);
     }
-
-
 
     @Override
     public void onBindViewHolder(@NonNull AbilityViewHolder holder, int position) {
-        Ability currentAbility = allAbilities.get(position);
-        holder.ability_name_textview.setText(currentAbility.getAbilityName());
-        // Add logic to display other ability details if needed
+        Ability ability = allAbilities.get(position);
+        holder.ability_name_textview.setText(ability.getAbilityName());
     }
-
 
     @Override
     public int getItemCount() {
         return allAbilities.size(); // Assuming 'allAbilities' is correctly populated
     }
 
-
     private void populateAbilities() {
         allAbilities = new ArrayList<>(); // Initialize list
 
         for (String[] abilityInfo : abilityData) {
-            Ability ability = new Ability(abilityInfo[3]); // Create Ability with just the name
+            String abilityName = abilityInfo[3]; // Extract ability name
+            Ability ability = new Ability(abilityName); // Create Ability with just the name
             allAbilities.add(ability);
         }
     }
-
 
     public List<Ability> filterClassAbilities(String selectedClass, List<String> excludedAbilities) {
         List<Ability> filteredAbilities = new ArrayList<>();
@@ -326,10 +325,29 @@ public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.
         List<Ability> filteredAbilities = new ArrayList<>();
         for (Ability ability : allAbilities) {
             if (ability.getAbilityClass().equals(selectedClass) &&
-                    !selectedAbilityName.contains(ability.getAbilityName())) { // Change here
+                    !selectedAbilityName.contains(ability.getAbilityName())) {
                 filteredAbilities.add(ability);
             }
         }
         return filteredAbilities;
     }
+
+    // Method to update abilities in the adapter
+    public void updateAbilities(List<Ability> abilities) {
+        allAbilities.clear(); // Clear existing data
+        allAbilities.addAll(abilities); // Add new data
+        notifyDataSetChanged(); // Notify RecyclerView of data change
+    }
+
+    public static class AbilityViewHolder extends RecyclerView.ViewHolder {
+        public TextView ability_name_textview; // Match this with the ID in your list item layout
+
+        public AbilityViewHolder(View itemView) {
+            super(itemView);
+            ability_name_textview = itemView.findViewById(R.id.ability_name_textview);
+            // Find any other TextViews you might have
+        }
+    }
+
+
 }

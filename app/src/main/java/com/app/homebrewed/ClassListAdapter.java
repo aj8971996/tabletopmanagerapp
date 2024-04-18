@@ -12,6 +12,7 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.Clas
 
     private String[] classData; // Holds the data for your list
     private int selectedPosition = 0; // Initially, first item is selected
+    private OnClassSelectedListener listener;
 
     // Constructor
     public ClassListAdapter(String[] speciesData) {
@@ -55,6 +56,15 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.Clas
             selectedPosition = position;
             notifyDataSetChanged(); // Redraw to show selection changes
         });
+    }
+
+    public interface OnClassSelectedListener {
+        void onClassSelected(String selectedClass);
+    }
+
+    // Public setter for the listener
+    public void setOnClassSelectedListener(OnClassSelectedListener listener) {
+        this.listener = listener;
     }
 
 

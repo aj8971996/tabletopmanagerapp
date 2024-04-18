@@ -619,60 +619,59 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:text="@string/abilityselectinstructions" />
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="75dp"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/abilitySelectOne"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     tools:listitem="@layout/list_character_abilities" />
+
                 <LinearLayout
                     android:id="@+id/abilityOneIndicatorLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/abilitySelectOne"
                     android:orientation="horizontal"
-                    android:layout_gravity="center"
                     android:gravity="center">
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/abilitySelectTwo"
-                    android:layout_toRightOf="@id/abilitySelectOne"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     tools:listitem="@layout/list_character_abilities" />
+
                 <LinearLayout
                     android:id="@+id/abilityTwoIndicatorLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/abilitySelectTwo"
                     android:orientation="horizontal"
-                    android:layout_gravity="center"
                     android:gravity="center">
                 </LinearLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/abilitySelectThree"
-                    android:layout_toRightOf="@id/abilitySelectTwo"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     tools:listitem="@layout/list_character_abilities" />
+
                 <LinearLayout
                     android:id="@+id/abilityThreeIndicatorLayout"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/abilitySelectThree"
                     android:orientation="horizontal"
-                    android:layout_gravity="center"
                     android:gravity="center">
                 </LinearLayout>
-            </RelativeLayout>
+            </LinearLayout>
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
