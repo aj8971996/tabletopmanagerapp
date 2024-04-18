@@ -1,5 +1,6 @@
 package com.app.homebrewed;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,10 +20,11 @@ public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.
         populateAbilities(); // Call your method to add abilities
     }
 
-    @NonNull
     @Override
     public AbilityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View listItem = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_character_abilities, parent, false);
+        return new AbilityViewHolder(listItem);
     }
 
     private String[][] abilityData = {
@@ -270,7 +272,7 @@ public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.
                     "No Damage",
                     "Detect the general detection of magic in effect - the stronger the magic, the more precise location you can gleam."}
     };
-    private List<Ability> allAbilities;
+    public List<Ability> allAbilities;
 
     public static class AbilityViewHolder extends RecyclerView.ViewHolder {
         public TextView ability_name_textview; // Match this with the ID in your list item layout
@@ -282,17 +284,21 @@ public class AbilityListAdapter extends RecyclerView.Adapter<AbilityListAdapter.
         }
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull AbilityViewHolder holder, int position) {
         Ability currentAbility = allAbilities.get(position);
         holder.ability_name_textview.setText(currentAbility.getAbilityName());
-        // You might want more TextViews here depending on your layout
+        // Add logic to display other ability details if needed
     }
+
 
     @Override
     public int getItemCount() {
-        return 0;
+        return allAbilities.size(); // Assuming 'allAbilities' is correctly populated
     }
+
 
     private void populateAbilities() {
         allAbilities = new ArrayList<>(); // Initialize list
