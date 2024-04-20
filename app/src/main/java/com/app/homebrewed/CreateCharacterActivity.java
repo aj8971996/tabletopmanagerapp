@@ -1,9 +1,13 @@
 package com.app.homebrewed;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -58,6 +62,8 @@ public class CreateCharacterActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton btnCreateCharacter = findViewById(R.id.btnCreateCharacter);
+
 
 
         // Find RecyclerViews
@@ -90,19 +96,34 @@ public class CreateCharacterActivity extends AppCompatActivity {
         EditText edtModEight = findViewById(R.id.edtModEight);
         EditText edtModNine = findViewById(R.id.edtModNine);
 
-        String charName = edtCharName.getText().toString();
-        String selectedSpecies = speciesAdapter.getSpecies();
-        String selectedClass = classAdapter.getSelectedClass();
-        int charHealth = Integer.parseInt(edtCharHealth.getText().toString());
-        int modOne = Integer.parseInt(edtModOne.getText().toString());
-        int modTwo = Integer.parseInt(edtModTwo.getText().toString());
-        int modThree = Integer.parseInt(edtModThree.getText().toString());
-        int modFour = Integer.parseInt(edtModFour.getText().toString());
-        int modFive = Integer.parseInt(edtModFive.getText().toString());
-        int modSix = Integer.parseInt(edtModSix.getText().toString());
-        int modSeven = Integer.parseInt(edtModSeven.getText().toString());
-        int modEight = Integer.parseInt(edtModEight.getText().toString());
-        int modNine = Integer.parseInt(edtModNine.getText().toString());
+
+
+        btnCreateCharacter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String charName = edtCharName.getText().toString();
+                String selectedSpecies = speciesAdapter.getSpecies();
+                String selectedClass = classAdapter.getSelectedClass();
+                int charHealth = Integer.parseInt(edtCharHealth.getText().toString());
+                int modOne = Integer.parseInt(edtModOne.getText().toString());
+                int modTwo = Integer.parseInt(edtModTwo.getText().toString());
+                int modThree = Integer.parseInt(edtModThree.getText().toString());
+                int modFour = Integer.parseInt(edtModFour.getText().toString());
+                int modFive = Integer.parseInt(edtModFive.getText().toString());
+                int modSix = Integer.parseInt(edtModSix.getText().toString());
+                int modSeven = Integer.parseInt(edtModSeven.getText().toString());
+                int modEight = Integer.parseInt(edtModEight.getText().toString());
+                int modNine = Integer.parseInt(edtModNine.getText().toString());
+
+                // 2. Create Character object
+                Character character = new Character(charName, selectedSpecies, 1, selectedClass, charHealth, modOne, modTwo, modThree, modFour,
+                        modFive, modSix, modSeven, modEight, modNine);
+
+                // 3. Save to SQLite
+                saveCharacterToDatabase(character);
+            }
+        });
 
         // Set LayoutManagers
         LinearLayoutManager speciesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -182,6 +203,11 @@ public class CreateCharacterActivity extends AppCompatActivity {
     }
 
 
+
+
+
+
+
     // Scroll listener creation
     private RecyclerView.OnScrollListener createScrollListener(final LinearLayout indicatorLayout) {
         return new RecyclerView.OnScrollListener() {
@@ -223,5 +249,42 @@ public class CreateCharacterActivity extends AppCompatActivity {
             ImageView dot = (ImageView) indicatorLayout.getChildAt(i);
             dot.setImageDrawable(getResources().getDrawable(i == position ? R.drawable.selected_dot : R.drawable.unselected_dot));
         }
+    }
+
+    private void saveCharacterToDatabase(Character character) {
+        // Instantiate CharacterDatabaseHelper passing the application context
+        CharacterDatabaseHelper dbHelper = new CharacterDatabaseHelper(getApplicationContext());
+
+        // Get a writable database
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        // Prepare the ContentValues object to insert data into the database
+        ContentValues values = new ContentValues();
+        values.put("characterName", character.getName());
+        values.put("characterSpecies", character.getSpecies());
+        values.put("characterClass", character.getCharacterClass());
+        values.put("characterHealth", character.getHealth());
+        values.put("characterModOne", character.getBody());
+        values.put("characterModTwo", character.getMind());
+        values.put("characterModThree", character.getFlex());
+        values.put("characterModFour", character.getBusiness());
+        values.put("characterModFive", character.getCharm());
+        values.put("characterModSix", character.getDeceit());
+        values.put("characterModSeven", character.getMagic());
+        values.put("characterModEight", character.getReligion());
+        values.put("characterModNine", character.getAcademics());
+
+        // Insert the data into the database
+        long newRowId = db.insert("Characters", null, values);
+
+        // Check if the insertion was successful
+        if (newRowId != -1) {
+            Log.d("Database", "Character inserted with row ID: " + newRowId);
+        } else {
+            Log.e("Database", "Failed to insert character");
+        }
+
+        // Close the database connection
+        db.close();
     }
 }

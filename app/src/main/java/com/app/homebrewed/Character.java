@@ -124,6 +124,13 @@ public class Character {
         this.academics = academics;
     }
 
+    public Character(String name, String species, int level, String characterClass) {
+        this.name = name;
+        this.species = species;
+        this.level = level;
+        this.characterClass = characterClass;
+    }
+
     public Character() {
 
     }

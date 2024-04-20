@@ -5,6 +5,8 @@ import androidx.appcompat.widget.AppCompatImageButton;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,30 +101,40 @@ public class CharacterSheetActivity extends AppCompatActivity {
     private List<Character> loadCharacterData() {
         List<Character> characters = new ArrayList<>();
 
-        // Start from index 1 to skip the header row
-        for (int i = 0; i < dummyData.length; i++) {
+        CharacterDatabaseHelper dbHelper = new CharacterDatabaseHelper(this);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-            String name = (dummyData[i][0]);
-            String species = (dummyData[i][1]);
-            int level = (Integer.parseInt(dummyData[i][2]));
-            String characterClass = (dummyData[i][3]);
-            int health = (Integer.parseInt(dummyData[i][4]));
-            int body = (Integer.parseInt(dummyData[i][5]));
-            int mind = (Integer.parseInt(dummyData[i][6]));
-            int flex = (Integer.parseInt(dummyData[i][7]));
-            int business = (Integer.parseInt(dummyData[i][8]));
-            int charm  = (Integer.parseInt(dummyData[i][9]));
-            int deceit = (Integer.parseInt(dummyData[i][10]));
-            int magic = (Integer.parseInt(dummyData[i][11]));
-            int religion = (Integer.parseInt(dummyData[i][12]));
-            int academics = (Integer.parseInt(dummyData[i][13]));
-            Character character = new Character(name, species, level, characterClass, health, body, mind, flex, business, charm, deceit, magic, religion, academics);
+        String[] projection = { characterName, characterSpecies, characterClass, characterLevel }; // See Step 2 below
 
+        Cursor cursor = db.query(
+                "Characters",    // Table name
+                projection,      // Columns to fetch
+                null,            // Selection (WHERE clause)
+                null,            // Selection arguments
+                null,            // Group By
+                null,            // Having
+                null             // Sort Order
+        );
+
+        while (cursor.moveToNext()) {
+            // Extract data from cursor:
+            String name = cursor.getString(cursor.getColumnIndexOrThrow("characterName"));
+            String species = cursor.getString(cursor.getColumnIndexOrThrow("characterSpecies"));
+            int level = cursor.getInt(cursor.getColumnIndexOrThrow("level"));
+            String characterClass = cursor.getString(cursor.getColumnIndexOrThrow("characterClass"));
+
+            // Create a Character object
+            Character character = new Character(name, species, level, characterClass);
+
+            // Add to list
             characters.add(character);
         }
 
+        cursor.close();
+        db.close();
         return characters;
     }
+
 
     public void loadCharList() {
         // Start CharacterListActivty directly
