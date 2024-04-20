@@ -7,12 +7,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdapter.CharacterViewHolder> {
 
-    private String[][] data;
-    private OnItemClickListener listener;
+    private List<Character> data;
+    // Inside your CharacterListAdapter class
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 
-    public CharacterListAdapter(String[][] data) {
+    public CharacterListAdapter(List<Character> data) {
         this.data = data;
     }
 
@@ -20,19 +25,35 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
     @Override
     public CharacterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View listItem = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_saved_characters, parent, false);
+                .inflate(R.layout.list_saved_characters, parent, false); // Use your list item layout
         return new CharacterViewHolder(listItem);
     }
 
+    class CharacterViewHolder extends RecyclerView.ViewHolder {
+        TextView nameTextView;
+        TextView typeTextView;
+        TextView levelTextView;
+
+        CharacterViewHolder(View itemView) {
+            super(itemView);
+            nameTextView = itemView.findViewById(R.id.character_name);
+            typeTextView = itemView.findViewById(R.id.character_class);
+            levelTextView = itemView.findViewById(R.id.character_level);
+        }
+    }
+
+
     @Override
     public void onBindViewHolder(@NonNull CharacterViewHolder holder, int position) {
-        String characterName = data[position][0];
-        String characterType = data[position][1];
-        String characterLevel = data[position][2];
+        Character character = data.get(position);
+
+        String characterName = character.getName();
+        String characterType = character.getCharacterClass();
+        int characterLevel = character.getLevel();
 
         holder.nameTextView.setText(characterName);
         holder.typeTextView.setText(characterType);
-        holder.levelTextView.setText(characterLevel);
+        holder.levelTextView.setText(String.valueOf(characterLevel));
 
         // Click handling using the listener
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -47,27 +68,21 @@ public class CharacterListAdapter extends RecyclerView.Adapter<CharacterListAdap
 
     @Override
     public int getItemCount() {
-        return data.length;
+        return data.size();  // Return the size of the List
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
 
-    public void setListener(OnItemClickListener listener) {
+    // Also inside CharacterListAdapter
+    private OnItemClickListener listener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
 
-    static class CharacterViewHolder extends RecyclerView.ViewHolder {
-        TextView nameTextView;
-        TextView typeTextView;
-        TextView levelTextView;
 
-        CharacterViewHolder(View itemView) {
-            super(itemView);
-            nameTextView = itemView.findViewById(R.id.character_name);
-            typeTextView = itemView.findViewById(R.id.character_type);
-            levelTextView = itemView.findViewById(R.id.character_level);
-        }
+
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 }

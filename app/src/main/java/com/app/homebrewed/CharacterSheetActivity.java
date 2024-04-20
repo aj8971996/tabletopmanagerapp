@@ -104,7 +104,7 @@ public class CharacterSheetActivity extends AppCompatActivity {
         CharacterDatabaseHelper dbHelper = new CharacterDatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String[] projection = { characterName, characterSpecies, characterClass, characterLevel }; // See Step 2 below
+        String[] projection = { "characterName", "characterSpecies", "characterClass", "characterLevel" }; // See Step 2 below
 
         Cursor cursor = db.query(
                 "Characters",    // Table name

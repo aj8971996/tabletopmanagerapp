@@ -2,6 +2,7 @@ package com.app.homebrewed;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -63,6 +65,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
         });
 
         ImageButton btnCreateCharacter = findViewById(R.id.btnCreateCharacter);
+        ImageButton btnLoadCharacter = findViewById(R.id.btnLoadCharacter);
 
 
 
@@ -102,28 +105,74 @@ public class CreateCharacterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String charName = edtCharName.getText().toString();
+                String charName = edtCharName.getText().toString().trim();
                 String selectedSpecies = speciesAdapter.getSpecies();
                 String selectedClass = classAdapter.getSelectedClass();
-                int charHealth = Integer.parseInt(edtCharHealth.getText().toString());
-                int modOne = Integer.parseInt(edtModOne.getText().toString());
-                int modTwo = Integer.parseInt(edtModTwo.getText().toString());
-                int modThree = Integer.parseInt(edtModThree.getText().toString());
-                int modFour = Integer.parseInt(edtModFour.getText().toString());
-                int modFive = Integer.parseInt(edtModFive.getText().toString());
-                int modSix = Integer.parseInt(edtModSix.getText().toString());
-                int modSeven = Integer.parseInt(edtModSeven.getText().toString());
-                int modEight = Integer.parseInt(edtModEight.getText().toString());
-                int modNine = Integer.parseInt(edtModNine.getText().toString());
+                String charHealthString = edtCharHealth.getText().toString().trim();
+                String[] modStrings = {
+                        edtModOne.getText().toString().trim(),
+                        edtModTwo.getText().toString().trim(),
+                        edtModThree.getText().toString().trim(),
+                        edtModFour.getText().toString().trim(),
+                        edtModFive.getText().toString().trim(),
+                        edtModSix.getText().toString().trim(),
+                        edtModSeven.getText().toString().trim(),
+                        edtModEight.getText().toString().trim(),
+                        edtModNine.getText().toString().trim()
+                };
 
-                // 2. Create Character object
-                Character character = new Character(charName, selectedSpecies, 1, selectedClass, charHealth, modOne, modTwo, modThree, modFour,
-                        modFive, modSix, modSeven, modEight, modNine);
+                // Input Validation
+                if (charName.isEmpty()) {
+                    Toast.makeText(CreateCharacterActivity.this, "Please enter a character name", Toast.LENGTH_SHORT).show();
+                    return; // Stop processing
+                }
 
-                // 3. Save to SQLite
-                saveCharacterToDatabase(character);
+                // Validate character health input
+                int charHealth;
+                try {
+                    charHealth = Integer.parseInt(charHealthString);
+                    if (charHealth <= 0) {
+                        Toast.makeText(CreateCharacterActivity.this, "Character health must be a positive integer", Toast.LENGTH_SHORT).show();
+                        return; // Stop processing
+                    }
+                } catch (NumberFormatException e) {
+                    Toast.makeText(CreateCharacterActivity.this, "Please enter a valid character health", Toast.LENGTH_SHORT).show();
+                    return; // Stop processing
+                }
+
+                // Validate modifier inputs
+                int[] modifiers = new int[9];
+                for (int i = 0; i < modStrings.length; i++) {
+                    try {
+                        modifiers[i] = Integer.parseInt(modStrings[i]);
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(CreateCharacterActivity.this, "Please enter valid modifier values", Toast.LENGTH_SHORT).show();
+                        return; // Stop processing
+                    }
+                }
+
+                // Create Character object
+                Character character = new Character(charName, selectedSpecies, 1, selectedClass, charHealth, modifiers[0], modifiers[1], modifiers[2],
+                        modifiers[3], modifiers[4], modifiers[5], modifiers[6], modifiers[7], modifiers[8]);
+
+                // Save to SQLite only if input validation succeeds
+                try {
+                    Log.d("Database", "Inserting character: " + character.getName() + "...");
+                    saveCharacterToDatabase(character);
+                } catch (Exception e) {
+                    // Handle any exceptions that occur during saving to database
+                    Toast.makeText(CreateCharacterActivity.this, "Error saving character to database", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+        btnLoadCharacter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadCharList(); // Call your existing signIn method
+            }
+        });
+
 
         // Set LayoutManagers
         LinearLayoutManager speciesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -201,12 +250,6 @@ public class CreateCharacterActivity extends AppCompatActivity {
         List<Ability> filteredAbilities = adapter.filterClassAbilities(selectedClass, excludedAbilities);
         adapter.updateAbilities(filteredAbilities); // Update RecyclerView with filtered abilities
     }
-
-
-
-
-
-
 
     // Scroll listener creation
     private RecyclerView.OnScrollListener createScrollListener(final LinearLayout indicatorLayout) {
@@ -286,5 +329,11 @@ public class CreateCharacterActivity extends AppCompatActivity {
 
         // Close the database connection
         db.close();
+    }
+
+    public void loadCharList() {
+        // Start CharacterListActivty directly
+        Intent intent = new Intent(CreateCharacterActivity.this, CharacterListActivity.class);
+        startActivity(intent);
     }
 }

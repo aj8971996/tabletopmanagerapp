@@ -2,10 +2,14 @@ package com.app.homebrewed;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterDatabaseHelper extends SQLiteOpenHelper {
     //Declare Database Variables
@@ -47,7 +51,7 @@ public class CharacterDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_NAME_CHARACTER_MOD_SIX + " INTEGER, " +
                 COLUMN_NAME_CHARACTER_MOD_SEVEN + " INTEGER, " +
                 COLUMN_NAME_CHARACTER_MOD_EIGHT + " INTEGER, " +
-                COLUMN_NAME_CHARACTER_MOD_NINE + " INTEGER, " +
+                COLUMN_NAME_CHARACTER_MOD_NINE + " INTEGER" + // No comma here
                 ");";
         db.execSQL(CREATE_CHARACTERS_TABLE);
     }
@@ -80,4 +84,62 @@ public class CharacterDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    // Inside your CharacterDatabaseHelper class
+    public List<Character> getAllCharacters() {
+        List<Character> characters = new ArrayList<>();
+
+        // Get a readable database reference
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define the query
+        String query = "SELECT * FROM Characters"; // Assuming your table is named 'Characters'
+
+        // Execute the query
+        Cursor cursor = db.rawQuery(query, null);
+
+        // Iterate through the results and create Character objects
+        if (cursor.moveToFirst()) {
+            do {
+                // Access column values using cursor.get...(column_index)
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_NAME));
+                String species = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_SPECIES));
+                String characterClass = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_CLASS));
+                int level = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_LEVEL));
+                int health = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_HEALTH));
+                int modOne = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_ONE));
+                int modTwo = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_TWO));
+                int modThree = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_THREE));
+                int modFour = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_FOUR));
+                int modFive = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_FIVE));
+                int modSix = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_SIX));
+                int modSeven = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_SEVEN));
+                int modEight = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_EIGHT));
+                int modNine = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_NAME_CHARACTER_MOD_NINE));
+
+                // Create a Character object
+                Character character = new Character(name, species, level, characterClass);
+                character.setHealth(health);
+                character.setModBody(modOne);
+                character.setModMind(modTwo);
+                character.setModFlex(modThree);
+                character.setModBusiness(modFour);
+                character.setModCharm(modFive);
+                character.setModDeceit(modSix);
+                character.setModMagic(modSeven);
+                character.setModReligion(modEight);
+                character.setModAcademics(modNine);
+
+                // Add the character to the list
+                characters.add(character);
+            } while (cursor.moveToNext());
+        }
+
+
+        cursor.close();  // Close the cursor
+        db.close();     // Close the database connection
+
+        return characters;
+    }
+
 }

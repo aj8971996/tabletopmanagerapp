@@ -15,7 +15,7 @@
         android:layout_marginEnd="5dp" />
 
     <TextView
-        android:id="@+id/character_type"
+        android:id="@+id/character_class"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

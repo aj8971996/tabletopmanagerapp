@@ -1,52 +1,36 @@
 package com.app.homebrewed;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TableRow;
-import android.widget.TextView;
-
-import androidx.appcompat.widget.AppCompatImageButton;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class CharacterListActivity extends AppCompatActivity {
 
-    private String[][] dummyData = {
-            {"Bugsy Siegal", "Magical Being", "8"},
-            {"Elvis Presley", "Human Being", "6"},
-            {"Ebbers Caulklin", "Magical Being", "3"},
-            {"Brandon Pinkowski", "Human Being", "5"},
-            {"Oscar Meyer", "Magical Being", "4"},
-            {"Trucker Washington", "Human Being", "4"},
-            {"Sibillye Durn", "Human Being", "6"}
-    };
+    private CharacterDatabaseHelper dbHelper;
 
-    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_characterlist);
-        AppCompatImageButton btnCreateChar = findViewById(R.id.btncreatecharacter);
 
-        // Initialize the RecyclerView (pre-existing)
-        RecyclerView characterList = (RecyclerView) findViewById(R.id.character_list);
+        // Initialize the database helper
+        dbHelper = new CharacterDatabaseHelper(this);
+
+        // Initialize views
+        AppCompatImageButton btnCreateChar = findViewById(R.id.btncreatecharacter);
+        RecyclerView characterList = findViewById(R.id.character_list);
+
+        // Set layout manager for RecyclerView
         characterList.setLayoutManager(new LinearLayoutManager(this));
 
-        // Create the OnItemClickListener
-        CharacterListAdapter.OnItemClickListener listener = new CharacterListAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                // Start the CharacterSheetActivity and send the selected character's position
-                Intent intent = new Intent(CharacterListActivity.this, CharacterSheetActivity.class);
-                intent.putExtra("selectedCharacterIndex", position);
-                startActivity(intent);
-            }
-        };
-
+        // Set click listener for create character button
         btnCreateChar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,18 +38,34 @@ public class CharacterListActivity extends AppCompatActivity {
             }
         });
 
+        // Load character data from the database
+        List<Character> characterData = loadCharacterData();
+
         // Create the adapter
-        CharacterListAdapter adapter = new CharacterListAdapter(dummyData);
+        CharacterListAdapter adapter = new CharacterListAdapter(characterData);
 
         // Set the adapter to the RecyclerView
         characterList.setAdapter(adapter);
 
-        // Set the listener on the adapter
-        adapter.setListener(listener);
+        // Set click listener for RecyclerView items
+        adapter.setOnItemClickListener(new CharacterListAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                // Start the CharacterSheetActivity and send the selected character's position
+                Intent intent = new Intent(CharacterListActivity.this, CharacterSheetActivity.class);
+                intent.putExtra("selectedCharacterIndex", position);
+                startActivity(intent);
+            }
+        });
     }
 
+    // Method to load characters from the database
+    private List<Character> loadCharacterData() {
+        return dbHelper.getAllCharacters();
+    }
+
+    // Method to start CreateCharacterActivity
     public void createCharacter() {
-        // Start CharacterListActivty directly
         Intent intent = new Intent(CharacterListActivity.this, CreateCharacterActivity.class);
         startActivity(intent);
     }
