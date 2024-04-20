@@ -106,4 +106,25 @@ public class Character {
     public void setModAcademics(Integer i) {
         this.academics = i;
     }
+
+    public Character(String name, String species, int level, String characterClass, int health, int body, int mind, int flex, int business, int charm, int deceit, int magic, int religion, int academics) {
+        this.name = name;
+        this.species = species;
+        this.level = level;
+        this.characterClass = characterClass;
+        this.health = health;
+        this.body = body;
+        this.mind = mind;
+        this.flex = flex;
+        this.business = business;
+        this.charm = charm;
+        this.deceit = deceit;
+        this.magic = magic;
+        this.religion = religion;
+        this.academics = academics;
+    }
+
+    public Character() {
+
+    }
 }

@@ -101,21 +101,22 @@ public class CharacterSheetActivity extends AppCompatActivity {
 
         // Start from index 1 to skip the header row
         for (int i = 0; i < dummyData.length; i++) {
-            Character character = new Character();
-            character.setName(dummyData[i][0]);
-            character.setSpecies(dummyData[i][1]);
-            character.setLevel(Integer.parseInt(dummyData[i][2]));
-            character.setCharacterClass(dummyData[i][3]);
-            character.setHealth(Integer.parseInt(dummyData[i][4]));
-            character.setModBody(Integer.parseInt(dummyData[i][5]));
-            character.setModMind(Integer.parseInt(dummyData[i][6]));
-            character.setModFlex(Integer.parseInt(dummyData[i][7]));
-            character.setModBusiness(Integer.parseInt(dummyData[i][8]));
-            character.setModCharm(Integer.parseInt(dummyData[i][9]));
-            character.setModDeceit(Integer.parseInt(dummyData[i][10]));
-            character.setModMagic(Integer.parseInt(dummyData[i][11]));
-            character.setModReligion(Integer.parseInt(dummyData[i][12]));
-            character.setModAcademics(Integer.parseInt(dummyData[i][13]));
+
+            String name = (dummyData[i][0]);
+            String species = (dummyData[i][1]);
+            int level = (Integer.parseInt(dummyData[i][2]));
+            String characterClass = (dummyData[i][3]);
+            int health = (Integer.parseInt(dummyData[i][4]));
+            int body = (Integer.parseInt(dummyData[i][5]));
+            int mind = (Integer.parseInt(dummyData[i][6]));
+            int flex = (Integer.parseInt(dummyData[i][7]));
+            int business = (Integer.parseInt(dummyData[i][8]));
+            int charm  = (Integer.parseInt(dummyData[i][9]));
+            int deceit = (Integer.parseInt(dummyData[i][10]));
+            int magic = (Integer.parseInt(dummyData[i][11]));
+            int religion = (Integer.parseInt(dummyData[i][12]));
+            int academics = (Integer.parseInt(dummyData[i][13]));
+            Character character = new Character(name, species, level, characterClass, health, body, mind, flex, business, charm, deceit, magic, religion, academics);
 
             characters.add(character);
         }

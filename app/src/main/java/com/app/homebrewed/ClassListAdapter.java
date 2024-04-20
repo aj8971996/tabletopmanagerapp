@@ -1,5 +1,6 @@
 package com.app.homebrewed;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,8 +45,9 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.Clas
         return new ClassViewHolder(listItem); // Correct return statement
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
-    public void onBindViewHolder(@NonNull ClassViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ClassViewHolder holder, @SuppressLint("RecyclerView") int position) {
         String currentClass = classData[position];
         holder.textView1.setText(currentClass);
 
@@ -55,6 +57,11 @@ public class ClassListAdapter extends RecyclerView.Adapter<ClassListAdapter.Clas
             // Update Selection
             selectedPosition = position;
             notifyDataSetChanged(); // Redraw to show selection changes
+
+            // Notify the listener
+            if (listener != null) {
+                listener.onClassSelected(classData[position]);
+            }
         });
     }
 
