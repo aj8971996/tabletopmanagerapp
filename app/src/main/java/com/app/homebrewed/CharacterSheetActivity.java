@@ -104,7 +104,12 @@ public class CharacterSheetActivity extends AppCompatActivity {
         CharacterDatabaseHelper dbHelper = new CharacterDatabaseHelper(this);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String[] projection = { "characterName", "characterSpecies", "characterClass", "characterLevel" }; // See Step 2 below
+        String[] projection = {
+                "characterName", "characterSpecies", "characterClass", "characterLevel",
+                "characterHealth", "characterModOne", "characterModTwo",
+                "characterModThree", "characterModFour", "characterModFive",
+                "characterModSix", "characterModSeven", "characterModEight", "characterModNine" // Include all required attributes
+        };
 
         Cursor cursor = db.query(
                 "Characters",    // Table name
@@ -120,11 +125,24 @@ public class CharacterSheetActivity extends AppCompatActivity {
             // Extract data from cursor:
             String name = cursor.getString(cursor.getColumnIndexOrThrow("characterName"));
             String species = cursor.getString(cursor.getColumnIndexOrThrow("characterSpecies"));
-            int level = cursor.getInt(cursor.getColumnIndexOrThrow("level"));
+            int level = cursor.getInt(cursor.getColumnIndexOrThrow("characterLevel"));
             String characterClass = cursor.getString(cursor.getColumnIndexOrThrow("characterClass"));
+            int characterHealth = cursor.getInt(cursor.getColumnIndexOrThrow("characterHealth"));
+            int modOne = cursor.getInt(cursor.getColumnIndexOrThrow("characterModOne"));
+            int modTwo = cursor.getInt(cursor.getColumnIndexOrThrow("characterModTwo"));
+            int modThree = cursor.getInt(cursor.getColumnIndexOrThrow("characterModThree"));
+            int modFour = cursor.getInt(cursor.getColumnIndexOrThrow("characterModFour"));
+            int modFive = cursor.getInt(cursor.getColumnIndexOrThrow("characterModFive"));
+            int modSix = cursor.getInt(cursor.getColumnIndexOrThrow("characterModSix"));
+            int modSeven = cursor.getInt(cursor.getColumnIndexOrThrow("characterModSeven"));
+            int modEight = cursor.getInt(cursor.getColumnIndexOrThrow("characterModEight"));
+            int modNine = cursor.getInt(cursor.getColumnIndexOrThrow("characterModNine"));
 
             // Create a Character object
-            Character character = new Character(name, species, level, characterClass);
+            Character character = new Character(name, species, level,
+                    characterClass, characterHealth, modOne,
+                    modTwo, modThree, modFour, modFive,
+                    modSix, modSeven, modEight, modNine);
 
             // Add to list
             characters.add(character);
