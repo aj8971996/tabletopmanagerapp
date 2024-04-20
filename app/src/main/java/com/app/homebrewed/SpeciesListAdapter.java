@@ -27,6 +27,14 @@ public class SpeciesListAdapter extends RecyclerView.Adapter<SpeciesListAdapter.
         }
     }
 
+    public String getSpecies() {
+        if (selectedPosition != -1) {
+            return speciesData[selectedPosition];
+        } else {
+            return null; // Or maybe a default value or throw an exception
+        }
+    }
+
     // Required Methods (We'll fill them in)
     @NonNull
     @Override
@@ -34,11 +42,14 @@ public class SpeciesListAdapter extends RecyclerView.Adapter<SpeciesListAdapter.
         View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_character_species, parent, false);
         return new SpeciesViewHolder(listItem); // Correct return statement
     }
-
+    private int selectedPosition = -1;
     @Override
     public void onBindViewHolder(@NonNull SpeciesViewHolder holder, int position) {
         String currentSpecies = speciesData[position];
         holder.textView1.setText(currentSpecies);
+
+        // Highlight if selected
+        holder.itemView.setSelected(selectedPosition == position);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.app.homebrewed;
 import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -23,6 +24,7 @@ public class CreateCharacterActivity extends AppCompatActivity {
     private AbilityListAdapter abilityListAdapterOne;
     private AbilityListAdapter abilityListAdapterTwo;
     private AbilityListAdapter abilityListAdapterThree;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class CreateCharacterActivity extends AppCompatActivity {
             }
         });
 
+
+
         // Find RecyclerViews
         RecyclerView speciesRecyclerView = findViewById(R.id.speciesRecyclerView);
         RecyclerView classRecyclerView = findViewById(R.id.classRecyclerView);
@@ -73,6 +77,32 @@ public class CreateCharacterActivity extends AppCompatActivity {
         abilitySelectTwoRecyclerView.setAdapter(abilityListAdapterTwo);
         abilityListAdapterThree = new AbilityListAdapter();
         abilitySelectThreeRecyclerView.setAdapter(abilityListAdapterThree);
+
+        EditText edtCharName = findViewById(R.id.edtCharName);
+        EditText edtCharHealth = findViewById(R.id.edtCharHealth);
+        EditText edtModOne = findViewById(R.id.edtModOne);
+        EditText edtModTwo = findViewById(R.id.edtModTwo);
+        EditText edtModThree = findViewById(R.id.edtModThree);
+        EditText edtModFour = findViewById(R.id.edtModFour);
+        EditText edtModFive = findViewById(R.id.edtModFive);
+        EditText edtModSix = findViewById(R.id.edtModSix);
+        EditText edtModSeven = findViewById(R.id.edtModSeven);
+        EditText edtModEight = findViewById(R.id.edtModEight);
+        EditText edtModNine = findViewById(R.id.edtModNine);
+
+        String charName = edtCharName.getText().toString();
+        String selectedSpecies = speciesAdapter.getSpecies();
+        String selectedClass = classAdapter.getSelectedClass();
+        int charHealth = Integer.parseInt(edtCharHealth.getText().toString());
+        int modOne = Integer.parseInt(edtModOne.getText().toString());
+        int modTwo = Integer.parseInt(edtModTwo.getText().toString());
+        int modThree = Integer.parseInt(edtModThree.getText().toString());
+        int modFour = Integer.parseInt(edtModFour.getText().toString());
+        int modFive = Integer.parseInt(edtModFive.getText().toString());
+        int modSix = Integer.parseInt(edtModSix.getText().toString());
+        int modSeven = Integer.parseInt(edtModSeven.getText().toString());
+        int modEight = Integer.parseInt(edtModEight.getText().toString());
+        int modNine = Integer.parseInt(edtModNine.getText().toString());
 
         // Set LayoutManagers
         LinearLayoutManager speciesLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
